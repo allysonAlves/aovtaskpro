@@ -4,13 +4,11 @@ import { useNavigate } from "react-router-dom";
 import Login from "../pages/login";
 import { getSavedSession, openLogin, saveSession } from "../service/authService";
 
-const initialUser = {
-    userData: {        
-        firstName: "",
-        lastName: "",
-        email: "",
-        isAuth: false
-    }
+const initialUser = {        
+  firstName: "",
+  lastName: "",
+  email: "",
+  isAuth: false   
 };
 
 export const authContext = React.createContext(initialUser);

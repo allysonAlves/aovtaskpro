@@ -4,7 +4,7 @@ const directoryPaths = require('../utils/directory.utils');
 
 const login = async (url) => {
 
-    const urlLogin = url || 'https://project.targetwork.net/projects/zip-aplicativo/';
+    const urlLogin = url || 'https://project.targetwork.net/my/account';
 
     const browser = await puppeteer.launch({
         headless: false, // Executar em modo headless ou não

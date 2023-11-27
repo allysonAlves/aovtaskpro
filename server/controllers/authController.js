@@ -8,8 +8,8 @@ class authController{
         });
           
        router.get('/auth/login', async (req, res) => {
-        const isAuth = await login();            
-            res.json({ isAuth });
+        const result = await login();            
+            res.json({ ...result });
         });
     }
 }
