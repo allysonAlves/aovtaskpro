@@ -1,0 +1,32 @@
+[
+  {
+    "name": "_open_project_session",
+    "value": "aac53e8b1b1e1f42bc1a2ddffd32ddca",
+    "domain": "project.targetwork.net",
+    "path": "/",
+    "expires": -1,
+    "size": 53,
+    "httpOnly": true,
+    "secure": false,
+    "session": true,
+    "sameSite": "Lax",
+    "sameParty": false,
+    "sourceScheme": "Secure",
+    "sourcePort": 443
+  },
+  {
+    "name": "autologin",
+    "value": "7f4ed3f3bb2a3e1e6539fb9b297191c99fd8ce866de16851d082d22bf8534dbf",
+    "domain": "project.targetwork.net",
+    "path": "/",
+    "expires": 1732713784.620549,
+    "size": 73,
+    "httpOnly": true,
+    "secure": false,
+    "session": false,
+    "sameSite": "Lax",
+    "sameParty": false,
+    "sourceScheme": "Secure",
+    "sourcePort": 443
+  }
+]
