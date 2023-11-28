@@ -70,37 +70,37 @@ const checkLogin = async () => {
     const loginUrl = 'https://project.targetwork.net/my/account';
         
     if (!fs.existsSync(directoryPaths.getCookiesPath())) 
-        return false;
+        return {isAuth:false};
 
     //abrir navegador invisível para salvar o coockie que contém o login no coockies.txt
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    try{
-        
+    try{        
         const cookies = getCoockies();        
         await page.setCookie(...cookies);
         
         const response = await page.goto(loginUrl);
 
-        await page.waitForFunction((loginUrl) => {
+        const isAuth = await page.waitForFunction((loginUrl) => {
             return window.location.href == loginUrl;
         }, { timeout: 10000 }, loginUrl);  
 
+        
         const formValues = await page.$('.form--section');
+        
+        if(!isAuth || !formValues) return {isAuth:false}
+        
+        const values = await page.evaluate(formElement => {
+            return {
+                firstName: formElement.querySelector('#user_firstname').value,
+                lastName: formElement.querySelector('#user_lastname').value,
+                email: formElement.querySelector('#user_mail').value,
+                isAuth: true
+            }
+        },formValues);
 
-        if(formValues){
-            const values = await page.evaluate(formElement => {
-                return {
-                    firstName: formElement.querySelector('#user_firstname').value,
-                    lastName: formElement.querySelector('#user_lastname').value,
-                    email: formElement.querySelector('#user_mail').value,
-                    isAuth: true
-                }
-            },formValues);
-
-            return values;
-        }        
+        return values;              
 
     } catch {        
         return false;

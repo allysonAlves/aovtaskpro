@@ -2,19 +2,24 @@ import React, { useEffect } from "react";
 import { Axios } from "../service/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import Login from "../pages/login";
-import { getSavedSession, openLogin, saveSession } from "../service/authService";
+import {
+  getSavedSession,
+  openLogin,
+  saveSession,
+} from "../service/auth.service";
 
-const initialUser = {        
+const initialUser = {
   firstName: "",
   lastName: "",
   email: "",
-  isAuth: false   
+  isAuth: false,
 };
 
 export const authContext = React.createContext(initialUser);
+authContext.displayName = 'authContext';
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = React.useState(initialUser);  
+  const [user, setUser] = React.useState(initialUser);
   const [loading, setLoading] = React.useState(false);
 
   useEffect(() => {
@@ -26,9 +31,9 @@ export const AuthProvider = ({ children }) => {
       Axios("/auth")
         .then((response) => {
           const userData = response.data;
-            console.log(userData)
+
           if (userData?.isAuth) {
-            setUser(userData);            
+            setUser(userData);
             saveSession(userData);
           }
         })
@@ -37,16 +42,15 @@ export const AuthProvider = ({ children }) => {
           setLoading(false);
         });
     } else {
-      
-      setUser(token);      
+      setUser(token);
       setLoading(false);
     }
   }, []);
 
   const login = () => {
     openLogin().then((userData) => {
-        setUser(userData);       
-        saveSession(userData)
+      setUser(userData);
+      saveSession(userData);
     });
   };
 
@@ -66,7 +70,7 @@ export const AuthProvider = ({ children }) => {
   if (!user.isAuth) return <Login onLogin={login} />;
 
   return (
-    <authContext.Provider value={{userData: user}}>
+    <authContext.Provider value={{ userData: user }}>
       {children}
     </authContext.Provider>
   );

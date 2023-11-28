@@ -1,10 +1,17 @@
+const { syncTask } = require("../services/task.service");
+
 class taskController{    
     inject(router){
-        router.get('/tasks/get', (req, res) => {
-            res.json({ message: 'Chamada para /tasks/get' });
+        router.get('/task/list', async (req, res) => {
+            try{ 
+                const taskList = await syncTask();
+                res.json([...taskList]);
+            } catch(error) {
+                res.status(500).json({message: error})
+            }            
         });
           
-       router.post('/tasks/create', (req, res) => {
+       router.post('/task/create', (req, res) => {
             res.json({ message: 'Chamada para /tasks/create' });
         });
     }
