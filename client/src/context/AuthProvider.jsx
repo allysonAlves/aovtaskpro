@@ -3,6 +3,7 @@ import { Axios } from "../service/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import Login from "../pages/login";
 import {
+  checkAuth,
   getSavedSession,
   openLogin,
   saveSession,
@@ -23,28 +24,10 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = React.useState(false);
 
   useEffect(() => {
-    const token = getSavedSession();
-
-    if (!token) {
-      setLoading(true);
-
-      Axios("/auth")
-        .then((response) => {
-          const userData = response.data;
-
-          if (userData?.isAuth) {
-            setUser(userData);
-            saveSession(userData);
-          }
-        })
-        .catch(() => {})
-        .finally(() => {
-          setLoading(false);
-        });
-    } else {
-      setUser(token);
-      setLoading(false);
-    }
+    setLoading(true);
+    checkAuth()
+    .then(user => setUser(user))
+    .finally(() => setLoading(false));
   }, []);
 
   const login = () => {

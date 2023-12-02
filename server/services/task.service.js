@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const directoryPaths = require('../utils/directory.utils');
 const { getCoockies } = require('./authService');
+const{ getTaskList, saveTaskList } = require('../repository/task.repository')
 
 
 const syncTask = async() => {
@@ -30,9 +31,9 @@ const syncTask = async() => {
     await page.waitForSelector('.results-tbody.work-package--results-tbody');
     
     const parentElement = await page.$('.results-tbody.work-package--results-tbody');
-    
+    let taskArray = [];
     if (parentElement) {
-        const taskArray = await page.evaluate(parentElement => {
+        taskArray = await page.evaluate(parentElement => {
             const taskList = [];
             const children = parentElement.children;
             for (var i = 0; i < children.length; i++) {  
@@ -53,10 +54,32 @@ const syncTask = async() => {
             return taskList;
         }, parentElement);        
         
-        return taskArray
     }       
     await browser.close();   
-    
+    saveTaskList(taskList);
+    return taskArray
+        
 }
 
-module.exports = {syncTask}
+const taskList = () => {
+    new Promise((resolve, reject) => {        
+        resolve(getTaskList());
+    })
+}
+
+const saveTasks = (taskList) => {
+    const oldTasks = getTaskList();
+    let taskToSave = [...oldTasks];
+
+    for(let i = 0; i < taskList; i++ ){
+        const current = taskList[i];
+        const findTask = oldTasks.find(item => item.id == current.id);
+        
+        if(findTask){
+            
+        }
+    }
+
+}
+
+module.exports = {syncTask, taskList}

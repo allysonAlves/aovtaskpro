@@ -2,6 +2,15 @@ const { syncTask } = require("../services/task.service");
 
 class taskController{    
     inject(router){
+        router.get('/task/syncTasks', async (req, res) => {
+            try{ 
+                const taskList = await syncTask();
+                res.json([...taskList]);
+            } catch(error) {
+                res.status(500).json({message: error})
+            }            
+        });
+
         router.get('/task/list', async (req, res) => {
             try{ 
                 const taskList = await syncTask();

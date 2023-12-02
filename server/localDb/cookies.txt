@@ -1,7 +1,7 @@
 [
   {
     "name": "_open_project_session",
-    "value": "72493753739570c1d037491a112830f2",
+    "value": "063651f54ca2f688881889ad006fd28a",
     "domain": "project.targetwork.net",
     "path": "/",
     "expires": -1,
@@ -16,10 +16,10 @@
   },
   {
     "name": "autologin",
-    "value": "a6402e99d0156b2483e46d515bb81703fe38f988e86fee6c7ddc4cf5828f2243",
+    "value": "a49f5d3b779868cd8b90219b855cf9f11d4ac64de3bf5071fa279a338ec8bb79",
     "domain": "project.targetwork.net",
     "path": "/",
-    "expires": 1732747933.83375,
+    "expires": 1732938514.77194,
     "size": 73,
     "httpOnly": true,
     "secure": false,
